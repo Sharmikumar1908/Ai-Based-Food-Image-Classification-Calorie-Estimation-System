@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}About{% endblock %}
+{% block content %}
+<section class="page-heading"><div><div class="eyebrow">PROJECT NOTES / METHOD & RESPONSIBILITY</div><h1>About this prototype</h1><p>A small, local-first computer-vision demonstration for learning and evaluation.</p></div></section>
+<div class="about-layout">
+  <article class="about-main"><span class="eyebrow">PURPOSE</span><h2>Describe what is visible.<br>Do not infer what is not.</h2><p>This project detects face regions in classroom media and, when a locally trained CNN is available, classifies each detected crop into four approximate visual categories: facing forward, looking away, head down, or unclear.</p><p>These labels describe visible image cues only. They are not a measurement of concentration, emotion, effort, comprehension, participation, or learning, and they should not be used to evaluate or discipline an individual.</p><h3>Method</h3><ol class="method-list"><li><b>Acquire</b><span>Read an uploaded image/video or one webcam still in the browser.</span></li><li><b>Detect</b><span>Use OpenCV's bundled Haar cascades for frontal/profile face regions.</span></li><li><b>Classify</b><span>Use an optional trained compact CNN; without it, label detections Unclear.</span></li><li><b>Summarize</b><span>Show observation counts and store aggregate session metadata in SQLite.</span></li></ol></article>
+  <aside class="about-aside"><div class="eyebrow">LIMITATIONS</div><ul><li>Camera angle, lighting, distance, motion blur, and occlusion affect detection.</li><li>Haar cascades may miss small, turned, or partially visible faces.</li><li>A CNN is only as representative and well-labeled as its training data.</li><li>Different people may express or hold a pose differently.</li><li>Video totals count frame observations and can count the same person repeatedly.</li></ul><div class="privacy-note"><strong>Privacy by design</strong><p>Media is processed on the local machine, temporary video files are deleted, and history stores no images, names, or biometric identifiers.</p></div></aside>
+</div>
+<section class="architecture"><div class="eyebrow">SYSTEM FLOW</div><pre class="mermaid">flowchart LR
+  A[Image / video / webcam still] --> B[OpenCV face-region detection]
+  B --> C{Trained CNN available?}
+  C -- No --> D[Unclear / demo mode]
+  C -- Yes --> E[Four visual cue classes]
+  D --> F[Session-level counts]
+  E --> F
+  F --> G[Flask results dashboard]
+  F --> H[(SQLite aggregates)]
+  A -. temporary only .-> I[Deleted after processing]</pre></section>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Analyze media{% endblock %}
+{% block content %}
+<section class="page-heading"><div><div class="eyebrow">MEDIA WORKSPACE / 01</div><h1>Choose a classroom view</h1><p>Upload one image or video, or capture a single webcam frame. Processing stays local.</p></div><a class="text-link" href="{{ url_for('sample') }}">View simulated sample ↗</a></section>
+<div class="analysis-layout">
+  <section class="workspace-panel">
+    <div class="panel-heading"><div><span class="eyebrow">INPUT SOURCE</span><h2>Upload a file</h2></div><span class="step-number">01</span></div>
+    <form action="{{ url_for('analyze') }}" method="post" enctype="multipart/form-data" id="upload-form">
+      <label class="drop-zone" for="media-file"><span class="upload-symbol" aria-hidden="true">↑</span><strong id="file-name">Choose an image or video</strong><span>JPG, PNG, WEBP · MP4, AVI, MOV, MKV</span><span class="small">Maximum file size: 100 MB</span><input id="media-file" name="media" type="file" accept="image/*,video/*" required></label>
+      <button class="btn btn-dark w-100" type="submit" id="upload-submit">Process locally <span aria-hidden="true">→</span></button>
+    </form>
+    <div class="or-divider"><span>OR CAPTURE ONE FRAME</span></div>
+    <div class="camera-controls"><button class="btn btn-outline-dark" id="camera-start" type="button">Start webcam</button><button class="btn btn-dark" id="camera-capture" type="button" disabled>Capture frame</button></div>
+    <div class="camera-stage"><video id="camera-video" autoplay playsinline muted></video><canvas id="camera-canvas" hidden></canvas><div id="camera-placeholder">Camera preview appears here</div></div>
+    <form action="{{ url_for('analyze') }}" method="post" id="camera-form"><input type="hidden" name="webcam_image" id="webcam-image"><button class="btn btn-dark w-100" id="camera-submit" type="submit" disabled>Analyze captured frame</button></form>
+  </section>
+  <aside class="guidance-panel">
+    <div class="eyebrow">BEFORE YOU BEGIN</div><h2>What the labels mean</h2>
+    <ul class="cue-list"><li><span class="cue-key key-forward">01</span><span><strong>Facing forward</strong><small>Face appears generally oriented toward the camera.</small></span></li><li><span class="cue-key key-away">02</span><span><strong>Looking away</strong><small>Visible orientation appears turned from the camera.</small></span></li><li><span class="cue-key key-down">03</span><span><strong>Head down</strong><small>Visible head orientation appears lowered.</small></span></li><li><span class="cue-key key-unclear">04</span><span><strong>Unclear</strong><small>Not detected, uncertain, obscured, or no trained model.</small></span></li></ul>
+    <div class="privacy-note"><strong>Local processing</strong><p>Uploaded media is held temporarily and deleted after analysis. History stores counts and session metadata only, never the image or video.</p></div>
+  </aside>
+</div>
+{% endblock %}

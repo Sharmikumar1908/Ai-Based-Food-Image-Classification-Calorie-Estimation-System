@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Overview{% endblock %}
+{% block content %}
+<section class="home-hero">
+  <div class="hero-copy">
+    <div class="eyebrow"><span class="status-dot"></span> OFFLINE-FIRST · COMPUTER VISION</div>
+    <h1>Visible cues,<br><em>not assumptions.</em></h1>
+    <p class="hero-intro">A classroom media prototype that detects visible face regions and summarizes approximate head-orientation cues. It does not determine what a student is thinking or learning.</p>
+    <div class="hero-actions"><a class="btn btn-dark btn-lg" href="{{ url_for('analyze') }}">Analyze an image or video <span aria-hidden="true">→</span></a><a class="text-link" href="{{ url_for('sample') }}">Open simulated sample <span aria-hidden="true">↗</span></a></div>
+    <p class="hero-note">Without a trained model, detections are marked <strong>Unclear</strong>. The sample preview is simulated.</p>
+  </div>
+  <div class="hero-art" aria-label="Illustration of an aggregate classroom visual cue summary">
+    <div class="art-topline"><span>FRAME SUMMARY / LOCAL</span><span class="live-indicator">● PREVIEW</span></div>
+    <div class="classroom-board"><div class="board-rule"></div><div class="board-text">CUE<br>CHECK</div><div class="board-stats"><b>04</b><small>VISUAL CATEGORIES</small><b>00</b><small>IDENTITIES STORED</small></div></div>
+    <div class="desk-row"><div class="student-shape forward"><i></i><b></b></div><div class="student-shape side"><i></i><b></b></div><div class="student-shape down"><i></i><b></b></div><div class="student-shape forward second"><i></i><b></b></div></div>
+    <div class="art-caption"><span>ILLUSTRATIVE VISUAL</span><span>NO FACE RECOGNITION</span></div>
+  </div>
+</section>
+<section class="overview-strip" aria-label="Project details">
+  <div><span class="strip-index">01</span><strong>Detect</strong><small>OpenCV face regions</small></div>
+  <div><span class="strip-index">02</span><strong>Estimate</strong><small>Four visual cue labels</small></div>
+  <div><span class="strip-index">03</span><strong>Review</strong><small>Session-level counts</small></div>
+  <div><span class="strip-index">04</span><strong>Protect</strong><small>Media removed after processing</small></div>
+</section>
+<section class="home-bottom"><div><span class="eyebrow">A CAREFUL PROTOTYPE</span><h2>Context matters more<br>than a colored box.</h2></div><p>Camera angle, lighting, distance, occlusion, and individual differences can all change what is visible. Treat these outputs as a rough computer-vision demonstration, not a judgment about students.</p><a class="arrow-link" href="{{ url_for('about') }}">Read about method & limits <span aria-hidden="true">→</span></a></section>
+{% endblock %}

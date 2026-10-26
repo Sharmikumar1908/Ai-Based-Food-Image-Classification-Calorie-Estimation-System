@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Session history{% endblock %}
+{% block content %}
+<section class="page-heading"><div><div class="eyebrow">LOCAL DATABASE / AGGREGATES ONLY</div><h1>Session history</h1><p>Summaries contain category counts and media type only. Source media is not retained.</p></div><a class="btn btn-dark" href="{{ url_for('export_history') }}">Export CSV ↓</a></section>
+{% if sessions %}
+<div class="history-table-wrap"><table class="table history-table"><thead><tr><th>Session</th><th>Processed</th><th>Input</th><th>Face observations</th><th>Visual category totals</th><th>Source</th><th><span class="visually-hidden">Actions</span></th></tr></thead><tbody>
+{% for session in sessions %}<tr><td class="session-id">#{{ session.id }}</td><td>{{ session.created_at }}</td><td><span class="media-type">{{ session.media_type }}</span></td><td>{{ session.observations }}</td><td class="category-inline">F {{ session.facing_forward }} · A {{ session.looking_away }} · D {{ session.head_down }} · U {{ session.unclear }}</td><td>{{ session.model_mode }}</td><td><form action="{{ url_for('remove_session', session_id=session.id) }}" method="post"><button class="icon-button" type="submit" aria-label="Delete session {{ session.id }}" title="Delete session">×</button></form></td></tr>{% endfor %}
+</tbody></table></div>
+<p class="results-caveat">F = facing forward · A = looking away · D = head down · U = unclear. Video totals count observations across sampled frames, not unique people.</p>
+{% else %}<div class="empty-state"><span class="empty-mark">—</span><h2>No sessions yet</h2><p>Processed image and video summaries will appear here.</p><a class="btn btn-dark" href="{{ url_for('analyze') }}">Start an analysis →</a></div>{% endif %}
+{% endblock %}

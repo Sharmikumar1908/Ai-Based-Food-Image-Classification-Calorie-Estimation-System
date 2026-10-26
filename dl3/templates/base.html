@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f5f0">
+  <title>{% block title %}Classroom Cue{% endblock %} | Local prototype</title>
+  {{ bootstrap.load_css() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar navbar-expand-lg container-xl" aria-label="Main navigation">
+      <a class="brand-lockup" href="{{ url_for('home') }}"><span class="brand-mark">CC</span><span>Classroom Cue<small>LOCAL VISUAL PROTOTYPE</small></span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <div class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <a class="nav-link" href="{{ url_for('home') }}">Overview</a>
+          <a class="nav-link" href="{{ url_for('analyze') }}">Analyze media</a>
+          <a class="nav-link" href="{{ url_for('history') }}">Sessions</a>
+          <a class="nav-link" href="{{ url_for('about') }}">About</a>
+          <a class="btn btn-dark btn-sm nav-action" href="{{ url_for('analyze') }}">New analysis <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main class="container-xl page-shell">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}<div class="flash-stack" role="status">{% for category, message in messages %}<div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">{{ message }}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>{% endfor %}</div>{% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer container-xl"><span>Runs on this device. No student identity matching.</span><span>Visual cues only · not a measure of attention or learning</span></footer>
+  {{ bootstrap.load_js() }}
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>
